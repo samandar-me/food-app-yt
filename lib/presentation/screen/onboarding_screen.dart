@@ -5,6 +5,7 @@ import 'package:food_app_yt/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_app_yt/presentation/bloc/auth/auth_event.dart';
 import 'package:food_app_yt/presentation/bloc/auth/auth_state.dart';
 import 'package:food_app_yt/presentation/screen/main_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -79,8 +80,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         },
                         listener: (context, state) {
                           if(state is SuccessState) {
-                            Navigator.of(context)
-                                .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainScreen()), (route) => false);
+                            context.go('/');
                           } else if(state is ErrorState) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(content: Text(state.message)));

@@ -2,14 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app_yt/core/app_router.dart';
 import 'package:food_app_yt/data/manager/auth_manager.dart';
 import 'package:food_app_yt/presentation/bloc/auth/auth_bloc.dart';
-import 'package:food_app_yt/presentation/screen/main_screen.dart';
-import 'package:food_app_yt/presentation/screen/onboarding_screen.dart';
+import 'package:food_app_yt/presentation/bloc/recipes/recipe_bloc.dart';
 import 'di/injection_container.dart' as di;
-import 'package:bloc/bloc.dart';
-
-import 'di/injection_container.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +21,15 @@ Future<void> main() async {
 class FoodApp extends StatelessWidget {
   FoodApp({super.key});
 
-  final _auth = sl<AuthManager>();
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<AuthBloc>()),
+        BlocProvider(create: (_) => di.sl<RecipeBloc>()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return MediaQuery(data: MediaQuery.of(context).copyWith(
@@ -40,9 +37,8 @@ class FoodApp extends StatelessWidget {
           ), child: child!);
         },
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x90076935))
-        ),
-        home: _auth.getCurrentUser() == null ? OnBoardingScreen() : MainScreen(),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xDD0F3B08))
+        )
       ),
     );
   }
