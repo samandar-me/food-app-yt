@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_app_yt/data/manager/auth_manager.dart';
+import 'package:food_app_yt/data/model/food_response.dart';
+import 'package:food_app_yt/presentation/screen/detail_screen.dart';
 import 'package:food_app_yt/presentation/screen/favorite_screen.dart';
 import 'package:food_app_yt/presentation/screen/main_screen.dart';
 import 'package:food_app_yt/presentation/screen/onboarding_screen.dart';
@@ -40,7 +42,18 @@ class AppRouter {
             GoRoute(
                 path: '/',
                 parentNavigatorKey: _shellNavKey2,
-                pageBuilder: (context, state) => const NoTransitionPage(child:  RecipeScreen())
+                pageBuilder: (context, state) => const NoTransitionPage(child:  RecipeScreen()),
+              routes: [
+                GoRoute(
+                  path: "detail",
+                  parentNavigatorKey: _rootNavKey,
+                  builder: (context, state) {
+                    final data = state.extra as Map<String, Results>;
+                    final food = data['food'];
+                    return DetailScreen(food: food);
+                  }
+                )
+              ]
             ),
             GoRoute(
                 path: '/favorites',

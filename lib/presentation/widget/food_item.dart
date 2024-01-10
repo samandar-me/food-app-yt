@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class FoodItem extends StatelessWidget {
   const FoodItem({super.key, required this.results, required this.onClick});
   final Results results;
-  final VoidCallback onClick;
+  final void Function() onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class FoodItem extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
         width: double.infinity,
-        height: 200, /// 1
+        height: 180, /// 1
         child: InkWell(
-          onTap: () {},
+          onTap: onClick,
           borderRadius: BorderRadius.circular(16),
           child: Ink(
             decoration: BoxDecoration(
@@ -35,7 +35,7 @@ class FoodItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: 200,
+                      height: 180,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

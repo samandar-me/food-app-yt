@@ -8,9 +8,17 @@ abstract class RecipeEvent extends Equatable {
 }
 
 class OnGetRecipes extends RecipeEvent {
-  final Map<String, dynamic> query;
+  final String mealType;
+  final String dietType;
 
-  const OnGetRecipes(this.query);
+  const OnGetRecipes(this.mealType, this.dietType);
+
+  @override
+  List<Object?> get props => [mealType, dietType];
+}
+class OnSearch extends RecipeEvent {
+  final String query;
+  const OnSearch(this.query);
 
   @override
   List<Object?> get props => [query];
